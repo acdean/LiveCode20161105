@@ -5,7 +5,7 @@ PeasyCam cam;
 float MAJ_RAD = 400;
 float MIN_RAD = 50;
 float SZ = 30;
-int COUNT = 100; // divisible by 3
+int COUNT = 120; // divisible by 5
 PShape shape;
 float rx, ry, rz, dx, dy, dz;
 boolean video;
@@ -36,13 +36,13 @@ void draw() {
     colorMode(HSB, COUNT, 100, 100);
     shape = createShape(GROUP);
     for (int i = 0 ; i < COUNT ; i++) {
-      float angle1 = TWO_PI * i / (COUNT / 5);
-      float angle2 = TWO_PI * i / COUNT;
+      float angle1 = TWO_PI * i / (COUNT / 7.0); // major circle
+      float angle2 = TWO_PI * i / COUNT; // twisting
       PVector p = new PVector(MAJ_RAD + MIN_RAD * cos(angle2), MIN_RAD * sin(angle2));
       rotateY(p, angle1);
       PShape child = createShape(SPHERE, SZ);
       child.translate(p.x, p.y, p.z);
-      child.setFill(color(i, 100, 100));
+      child.setFill(color(map((angle1 % TWO_PI), 0, TWO_PI, 0, COUNT), 100, 100));
       child.setStroke(Boolean.FALSE);
       shape.addChild(child);
     }
@@ -66,7 +66,7 @@ void draw() {
 void rotateY(PVector p, float angle) {
   float x = p.x * cos(angle) - p.z * sin(angle);
   float y = p.y;
-  float z = p.x * sin(angle) + p.y * cos(angle);
+  float z = p.x * sin(angle) + p.z * cos(angle);
   p.set(x, y, z);
 }
 
