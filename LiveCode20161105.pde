@@ -36,13 +36,13 @@ void draw() {
     colorMode(HSB, COUNT, 100, 100);
     shape = createShape(GROUP);
     for (int i = 0 ; i < COUNT ; i++) {
-      float angle1 = TWO_PI * i / (COUNT / 7.0); // major circle
+      float angle1 = 2 * TWO_PI * i / (COUNT / 11.0); // major circle
       float angle2 = TWO_PI * i / COUNT; // twisting
       PVector p = new PVector(MAJ_RAD + MIN_RAD * cos(angle2), MIN_RAD * sin(angle2));
       rotateY(p, angle1);
       PShape child = createShape(SPHERE, SZ);
       child.translate(p.x, p.y, p.z);
-      child.setFill(color(map((angle1 % TWO_PI), 0, TWO_PI, 0, COUNT), 100, 100));
+      child.setFill(color(map(angle1 % TWO_PI, 0, TWO_PI, 0, COUNT), 100, 100));
       child.setStroke(Boolean.FALSE);
       shape.addChild(child);
     }
